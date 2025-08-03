@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+{% include head.html %}
+
+<body class="hack {% if site.theme_mode == 'dark' %}dark{% endif %}">
+
+  {% include theme-toggle-button.html %}
+
+  <div class="container">
+    <div class="grid">
+      <aside class="cell -3of12" role="navigation">
+        {% include navigation.html %}
+      </aside>
+
+      <main class="cell -9of12">
+        {{ content }}
+      </main>
+    </div>
+
+    {% include footer.html %}
+  </div>
+
+  <!-- Prism.js -->
+  <script src="https://npmcdn.com/prismjs@1.5.1/prism.js"></script>
+
+  <!-- Скрипт переключения темы (перенесён в конец) -->
+  <script>
+    (function() {
+      // Ждём полной загрузки DOM
+      document.addEventListener('DOMContentLoaded', function() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // 1. Проверяем сохранённую тему
+        const savedTheme = localStorage.getItem('theme');
+        
+        // 2. Если нет сохранённой - проверяем системные настройки
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // 3. Применяем тему (приоритет: savedTheme > systemPrefersDark > Jekyll config)
+        if (savedTheme) {
+          body.classList.toggle('dark', savedTheme === 'dark');
+        } else if (systemPrefersDark) {
+          body.classList.add('dark');
+          localStorage.setItem('theme', 'dark');
+        }
+
+        // 4. Обработчик клика
+        if (themeToggle) {
+          themeToggle.addEventListener('click', function() {
+            body.classList.toggle('dark');
+            const isDark = body.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            
+            // Обновляем ARIA-атрибут для доступности
+            themeToggle.setAttribute('aria-pressed', isDark);
+            
+            console.log('Theme toggled:', isDark ? 'dark' : 'light');
+          });
+          
+          // Инициализация ARIA-атрибута
+          themeToggle.setAttribute('aria-pressed', body.classList.contains('dark'));
+        } else {
+          console.error('Кнопка theme-toggle не найдена!');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
