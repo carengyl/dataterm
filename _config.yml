@@ -30,8 +30,8 @@ email: pavnikol84@gmail.com
 navigation:
   - text: Home
     url: /
-  # - text: Docs
-  #   url: /docs
+  - text: Найт-Сити
+    url: /night-city
   # - text: Examples
   #   url: /examples
 
