@@ -3,8 +3,6 @@
 ---
 @charset "utf-8";
 
-
-
 // Our variables
 $spacing-unit:     10px;
 $image-size:       50px;
@@ -13,7 +11,6 @@ $icon-size:        15px;
 
 // Sizes
 $on-palm:          768px;
-
 
 
 // Use media queries like this:
@@ -30,11 +27,54 @@ $on-palm:          768px;
 }
 
 
-// Import partials from `sass_dir` (defaults to `_sass`)
-@import
-        "styles",
-        "highlight"
-;
+// non hack.css styles
+.t-hackcss {  // Main prefix to avoid collisions
+
+  // navigation.html
+
+  &-navigation {
+    padding-right: $spacing-unit;
+  }
+
+  @at-root .hack &-navigation-heading {
+    padding-top: 20px;
+  }
+
+  // footer.html
+
+  @at-root body &-footer {
+    padding-bottom: $spacing-unit;
+  }
+
+  &-social {
+    display: inline-block;
+  }
+
+  &-social + &-social {
+    padding-left: $spacing-unit;
+  }
+
+  &-sm-reversed-grid.grid {
+    @include media-query($on-palm) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  &-icon {
+    display: inline-block;
+    vertical-align: middle;
+    width: $icon-size;
+    height: $icon-size;
+
+    > svg {
+      width: $icon-size;
+    }
+
+    > image {
+      width: $icon-size;
+    }
+  }
+}
 
 // Dark Theme Toggle
 .theme-toggle {
@@ -79,14 +119,14 @@ $on-palm:          768px;
     transform var(--animation-speed) cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-/* Правила для иконок */
+/* Rules for icons */
 .icon-sun,
 .icon-moon {
-  // Общие стили для обеих иконок
+  // Common styles for both icons
   stroke-width: 2;
 }
 
-/* Светлая тема (по умолчанию) */
+/* Light Theme (default) */
 body:not(.dark) {
   .icon-sun {
     opacity: 1;
@@ -98,7 +138,7 @@ body:not(.dark) {
   }
 }
 
-/* Тёмная тема */
+/* button dark */
 body.dark {
   .theme-toggle {
     --icon-color: #fff;
@@ -114,7 +154,12 @@ body.dark {
   }
 }
 
-p {
-  text-indent: 1.5em; // Отступ 1.5 размера шрифта
-  margin-bottom: 1em; // Дополнительный отступ снизу (опционально)
+.hack p {
+  text-indent: 1.5em; // First line 1.5 indent
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+p img {
+  margin-left: -1.5em; /* Compensate paragraph indent */
 }
