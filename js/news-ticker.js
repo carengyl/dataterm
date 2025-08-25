@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 tickerContent += this.createAdElement(ad);
             });
 
-            this.marquee.innerHTML = `<marquee direction="up" scrollamount="4" id="news-marquee" height="100%">${tickerContent}</marquee>`;
+            this.marquee.innerHTML = `<marquee direction="up" scrollamount="3" id="news-marquee" height="100%">${tickerContent}</marquee>`;
         }
     }
 
