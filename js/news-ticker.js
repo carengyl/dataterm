@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function () {
     class NewsTicker {
         constructor() {
             this.marquee = document.getElementById('news-marquee');
-            this.marquee.stop();
             this.newsItems = [];
             this.adImages = [];
             this.usedAds = new Set();
@@ -14,7 +13,6 @@ document.addEventListener('DOMContentLoaded', function () {
             await this.loadNews();
             await this.findAdImages();
             this.renderTicker();
-            this.marquee.start()
         }
 
         async loadNews() {
@@ -106,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 tickerContent += this.createAdElement(ad);
             });
 
-            this.marquee.innerHTML = tickerContent;
+            this.marquee.innerHTML = `<marquee direction="up" scrollamount="4" id="news-marquee" height="100%">${tickerContent}</marquee>`;
         }
     }
 
